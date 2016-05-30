@@ -1,0 +1,120 @@
+# SQL Queries
+
+---------
+## Basic Queries
+---------
+
+SELECT * FROM surveys
+
+SELECT year FROM surveys
+
+SELECT year, month, day FROM surveys
+
+SELECT year, year, year FROM surveys
+
+select year from surveys
+
+SELECT DISTINCT year FROM surveys
+
+SELECT DISTINCT year, month FROM surveys
+
+SELECT DISTINCT year, month, day FROM surveys
+
+SELECT year, month, day, weight FROM surveys
+
+SELECT year, month, day, weight/1000.0 FROM surveys
+
+SELECT year, month, day, ROUND(weight/1000.0, 3) FROM surveys
+
+SELECT year, species_id, sex, hindfoot_length, weight*1000 FROM surveys
+
+SELECT * FROM surveys
+WHERE (year > 2000)
+
+SELECT * FROM surveys
+WHERE (year >= 2000) AND (species_id = 'DM')
+
+SELECT * FROM surveys
+WHERE (species_id = 'DM') OR (species_id = 'DO') OR (species_id = 'DS')
+
+SELECT * FROM surveys
+WHERE species_id IN ('DM', 'DO', 'DS')
+
+SELECT species_id, sex, hindfoot_length, weight*1000 FROM surveys
+WHERE (year >= 2000) AND (species_id IN ('DM', 'DO', 'DS'))
+
+SELECT species_id, sex, hindfoot_length, weight*1000 FROM surveys
+WHERE (year >= 2000) AND (species_id IN ('DM', 'DO', 'DS')) 
+ORDER BY weight DESC
+
+SELECT species_id, sex, hindfoot_length, weight*1000 FROM surveys
+WHERE (year >= 2000) AND (species_id IN ('DM', 'DO', 'DS')) 
+ORDER BY weight DESC, hindfoot_length ASC
+
+SELECT * FROM surveys
+WHERE (year >= 2000) AND (species_id IN ('DM', 'DO', 'DS')) 
+ORDER BY year, month, day
+
+
+-----------
+## Aggregation
+-----------
+
+SELECT weight*1000 FROM surveys
+
+SELECT AVG(weight) from surveys
+
+SELECT SUM(weight) from surveys
+
+SELECT ROUND(SUM(weight)/1000.0, 3) from surveys
+
+SELECT AVG(weight), SUM(weight), MIN(weight), MAX(weight) from SURVEYS
+
+SELECT COUNT(*) FROM surveys
+
+SELECT COUNT(*) FROM surveys GROUP BY species_id
+
+SELECT species_id, COUNT(*) FROM surveys GROUP BY species_id
+
+SELECT species_id, COUNT(*), AVG(weight) FROM surveys GROUP BY year, species_id
+
+SELECT species_id, COUNT(*), AVG(weight) FROM surveys GROUP BY year, species_id
+HAVING AVG(weight) > 0
+
+-----------
+
+SELECT year, plot_id, species_id, COUNT(*), AVG(weight) FROM surveys 
+WHERE (plot_id <= 4) AND (species_id IN ('DS', 'DM', 'DO')) 
+GROUP BY year, plot_id, species_id ORDER BY year, plot_id
+
+------------
+## Joins
+------------
+
+SELECT * FROM surveys JOIN species ON surveys.species_id = species.species_id;
+
+SELECT surveys.year, surveys.month, surveys.day, species.genus, species.species
+FROM surveys JOIN species ON surveys.species_id = species.species_id;
+
+SELECT species.genus, species.species, surveys.weight
+FROM surveys JOIN species ON surveys.species_id = species.species_id WHERE species.taxa = 'Rodent'
+
+SELECT species.genus, species.species, AVG(surveys.weight)
+FROM surveys JOIN species ON surveys.species_id = species.species_id WHERE species.taxa = 'Rodent'
+GROUP BY species.species_id
+
+SELECT surveys.year, surveys.month, surveys.day, species.genus, species.species, COUNT(*)
+FROM surveys JOIN species ON surveys.species_id = species.species_id GROUP BY year, month, day, surveys.species_id
+
+---------
+## Final Exercises
+---------
+
+1. SELECT plot_type, count(*) AS num_plots  FROM plots  GROUP BY plot_type  ORDER BY num_plots DESC
+2. SELECT year, sex, count(*) AS num_animal  FROM surveys  WHERE sex IS NOT null  GROUP BY sex, year
+3. SELECT species_id, plot_type, count(*) FROM surveys JOIN plots ON surveys.plot_id=plots.plot_id WHERE species_id IS NOT null GROUP BY species_id, plot_type
+4. SELECT taxa, AVG(weight) FROM surveys JOIN species ON species.species_id=surveys.species_id GROUP BY taxa
+5. SELECT taxa, 100.0*count(*)/(SELECT count(*) FROM surveys) FROM surveys JOIN species ON surveys.species_id=species.species_id GROUP BY taxa
+6. SELECT surveys.species_id, MIN(weight) as min_weight, MAX(weight) as max_weight, AVG(weight) as mean_weight FROM surveys JOIN species ON surveys.species_id=species.species_id WHERE taxa = 'Rodent' GROUP BY surveys.species_id
+7. SELECT surveys.species_id, sex, AVG(hindfoot_length) as mean_foot_length  FROM surveys JOIN species ON surveys.species_id=species.species_id WHERE taxa = 'Rodent' AND sex IS NOT NULL GROUP BY surveys.species_id, sex
+8. SELECT surveys.species_id, year, AVG(weight) as mean_weight FROM surveys JOIN species ON surveys.species_id=species.species_id WHERE taxa = 'Rodent' GROUP BY surveys.species_id, year

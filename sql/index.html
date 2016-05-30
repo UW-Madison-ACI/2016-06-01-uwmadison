@@ -1,0 +1,116 @@
+---
+layout: setup
+root: ./
+assistant: []
+contact: admin@datacarpentry.org
+---
+<!--
+    Edit the values in the parameter block above to be appropriate for your bootcamp.
+    Please use three-letter month names for the 'humandate' field.
+-->
+
+
+<h2>SQL</h2>
+
+<p>We will be using the Data Carpentry SQL lesson, adapted for this workshop.  </p>
+
+<ul>
+<li><a href="http://www.datacarpentry.org/sql-ecology-lesson/">Lesson material</a></li>
+<li><a href="queries.txt">Reference list of queries</a></li>
+<li><a href="#exercises">Activities and exercises</a></li>
+</ul>
+
+<a name="exercises"></a>
+<h2> SQL Activities and Exercises </h2>
+
+<h3> Getting started</h3>
+
+<p>Download the three cleaned `.csv` files and open them in Excel (or similar).  Take 
+a look.  What kind of data is there?  How do you think it was collected?  </p>
+
+<ul>
+<li> What information can I learn about the the genus Dipodomys in the 2000s, looking 
+at information by year?  </li>
+<li> What is the average weight of each species, per year?  </li>
+<li> How does average hindfoot length of Dipodomys vary across plot types over time?  </li>
+</ul>
+
+What kind of challenges will we face in order to answer these questions? 
+
+<h3>Importing CSV Files</h3>
+
+Import the species and surveys tables
+
+<ol>
+<li>Start the import</li>
+<li> Select the file to import</li>
+<li> Give the table a name that matches the file name (surveys, species, plots), or use the default</li>
+<li> If the first row has column headings, check the appropriate box</li>
+<li>Make sure the delimiter and quotation options are appropriate for the CSV files.  Ensure 'Ignore trailing Separator/Delimiter' is left *unchecked*.</li>
+<li>Press **OK**</li>
+<li> When asked if you want to modify the table, click **OK**</li>
+<li>Set the data types for each field: choose TEXT for fields with text
+   (`species_id`, `genus`, `sex`, etc.) and INT for fields with numbers (`day`,
+   `month`, `year`, `weight`, etc.) </li>
+   </ol>
+   
+<h3>Using `SELECT`</h3>
+
+Write a query that returns the year, species ID, sex, hindfoot length and weight in milligrams.  
+
+<h3>Using `WHERE`</h3>
+
+Write a query that returns the species_id, sex, hindfoot length and weight (in mg)
+for all Dipodomys species from 2000 onward.  
+
+<h3>Using `ORDER BY` </h3>
+
+Write a query that returns all columns
+for all Dipodomys species from 2000 onward, ordered by date.  
+
+<h3>Aggregation </h3>
+
+Write a query that returns: total weight, average weight, and the min 
+and max weights for all animals caught over the duration of the survey. Can 
+you modify it so that it outputs these values only for weights between 5 and 10?
+
+<h3>Using `GROUP BY` </h3>
+
+Write a query that returns the average weight of each species in each year, showing 
+the year, species, species count and average weight value.  
+
+<h3>Interactive Database</h3>
+
+<ul>
+<li> You should have four cards at your seat.  Fill them out with the appropriate values.  </li>
+<li> When a query appears, raise your hand with the appropriate cards.  For some 
+queries, you may have to work with other people at your table or in the room.  </li>
+</ul>
+
+<h3>All Together</h3>
+
+Write a query that returns the average weight of each Dipodomys species for 
+each plot from 1-4 in 
+each year, showing 
+the year, plot ID, species, species count and average weight value, where the values 
+are sorted by year and plot ID.  
+
+<h3>Average Rodent</h3>
+
+Write a query that finds the average weight of each rodent species 
+(i.e., only include species with Rodent in the taxa field).
+
+
+<h3>Final Exercises</h3>
+
+Have a look at the following questions; these questions are written in plain English. Can you translate them to *SQL queries* and give a suitable answer?
+<ol>
+<li>How many plots from each type are there?  </li>
+<li>How many specimens are of each gender are there for each year?  </li>
+<li>How many specimens of each species were captured in each type of plot?</li>  
+<li>What is the average weight of each taxa?  </li>
+<li>What is the percentage of each species in each taxa?  </li>
+<li>What are the minimum, maximum and average weight for each species of Rodent?  </li>
+<li>What is the hindfoot length for male and female rodent of each species? Is there a Male / Female difference?  </li>
+<li>What is the average weight of each rodent species over the course of the years? Is there any noticeable trend for any of the species?  </li>
+</ol>

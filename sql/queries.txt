@@ -58,7 +58,6 @@ SELECT * FROM surveys
 WHERE (year >= 2000) AND (species_id IN ('DM', 'DO', 'DS')) 
 ORDER BY year, month, day
 
-
 -----------
 ## Aggregation
 -----------
@@ -83,8 +82,6 @@ SELECT species_id, COUNT(*), AVG(weight) FROM surveys GROUP BY year, species_id
 
 SELECT species_id, COUNT(*), AVG(weight) FROM surveys GROUP BY year, species_id
 HAVING AVG(weight) > 0
-
------------
 
 SELECT year, plot_id, species_id, COUNT(*), AVG(weight) FROM surveys 
 WHERE (plot_id <= 4) AND (species_id IN ('DS', 'DM', 'DO')) 
